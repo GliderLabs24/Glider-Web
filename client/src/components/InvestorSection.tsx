@@ -144,7 +144,7 @@ export function InvestorSection() {
               <h3 className="text-2xl font-semibold mb-6">Contact Us</h3>
               
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit, onInvalid)} className="space-y-5">
+                <form onSubmit={form.handleSubmit(onSubmit, onInvalid)} noValidate className="space-y-5">
                   <FormField
                     control={form.control}
                     name="name"
