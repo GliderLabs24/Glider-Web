@@ -1,6 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { Card } from '@/components/ui/card';
-import { Mail, Video, FileText, Lock } from 'lucide-react';
+import { Mail, Video, FileText, Lock, Shield } from 'lucide-react';
 import { useRef } from 'react';
 
 const tools = [
