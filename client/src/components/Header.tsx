@@ -29,11 +29,21 @@ export function Header() {
         scrolled ? 'shadow-lg' : ''
       }`}>
         <div className="flex items-center">
-          <img 
-            src="https://green-rainy-clam-911.mypinata.cloud/ipfs/bafkreif4rnp5754if77z747skgfhwgjj4vh5jb56d5dgrbjudsxl2nppsi" 
-            alt="Glider Logo" 
-            className="h-12 w-auto transition-all duration-300 hover:scale-105 ml-2 sm:ml-4"
-          />
+          <a 
+            href="#" 
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="flex items-center"
+            aria-label="Go to top"
+          >
+            <img 
+              src="https://green-rainy-clam-911.mypinata.cloud/ipfs/bafkreif4rnp5754if77z747skgfhwgjj4vh5jb56d5dgrbjudsxl2nppsi" 
+              alt="Glider Logo" 
+              className="h-12 w-auto transition-all duration-300 hover:scale-105 ml-2 sm:ml-4"
+            />
+          </a>
         </div>
 
         <nav className="hidden md:flex items-center gap-2 sm:gap-4" data-testid="nav-menu">

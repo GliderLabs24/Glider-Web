@@ -1,4 +1,4 @@
-import { SiFacebook, SiYoutube, SiInstagram, SiLinkedin, SiTelegram, SiGithub, SiX } from 'react-icons/si';
+import { SiYoutube, SiInstagram, SiLinkedin, SiTelegram, SiGithub, SiX } from 'react-icons/si';
 
 export function Footer() {
   return (
@@ -35,34 +35,7 @@ export function Footer() {
             <h3 className="font-semibold mb-4">Community</h3>
             <div className="flex flex-wrap gap-2">
               <a 
-                href="https://facebook.com/glider" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg glass border border-white/10 flex items-center justify-center hover-elevate transition-all hover:border-blue-500/50"
-                aria-label="Facebook"
-              >
-                <SiFacebook className="w-4 h-4 text-blue-400" />
-              </a>
-              <a 
-                href="https://youtube.com/glider" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg glass border border-white/10 flex items-center justify-center hover-elevate transition-all hover:border-red-500/50"
-                aria-label="YouTube"
-              >
-                <SiYoutube className="w-4 h-4 text-red-500" />
-              </a>
-              <a 
-                href="https://instagram.com/glider" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg glass border border-white/10 flex items-center justify-center hover-elevate transition-all hover:border-pink-500/50"
-                aria-label="Instagram"
-              >
-                <SiInstagram className="w-4 h-4 text-pink-400" />
-              </a>
-              <a 
-                href="https://linkedin.com/company/glider" 
+                href="https://www.linkedin.com/in/glider-labs-751415373/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-lg glass border border-white/10 flex items-center justify-center hover-elevate transition-all hover:border-blue-400/50"
@@ -71,16 +44,25 @@ export function Footer() {
                 <SiLinkedin className="w-4 h-4 text-blue-400" />
               </a>
               <a 
-                href="https://t.me/glider" 
+                href="https://x.com/Gliderweb3" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg glass border border-white/10 flex items-center justify-center hover-elevate transition-all hover:border-blue-400/50"
-                aria-label="Telegram"
+                className="w-9 h-9 rounded-lg glass border border-white/10 flex items-center justify-center hover-elevate transition-all hover:border-gray-400/50"
+                aria-label="X (Twitter)"
               >
-                <SiTelegram className="w-4 h-4 text-blue-400" />
+                <SiX className="w-4 h-4" />
               </a>
               <a 
-                href="https://github.com/glider" 
+                href="https://www.instagram.com/gliderweb3/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg glass border border-white/10 flex items-center justify-center hover-elevate transition-all hover:border-pink-500/50"
+                aria-label="Instagram"
+              >
+                <SiInstagram className="w-4 h-4 text-pink-400" />
+              </a>
+              <a 
+                href="https://github.com/GliderLabs24" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-lg glass border border-white/10 flex items-center justify-center hover-elevate transition-all hover:border-gray-400/50"
@@ -89,13 +71,22 @@ export function Footer() {
                 <SiGithub className="w-4 h-4 text-gray-200" />
               </a>
               <a 
-                href="https://x.com/glider" 
+                href="https://www.youtube.com/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg glass border border-white/10 flex items-center justify-center hover-elevate transition-all hover:border-gray-400/50"
-                aria-label="X (Twitter)"
+                className="w-9 h-9 rounded-lg glass border border-white/10 flex items-center justify-center hover-elevate transition-all hover:border-red-500/50"
+                aria-label="YouTube"
               >
-                <SiX className="w-4 h-4" />
+                <SiYoutube className="w-4 h-4 text-red-500" />
+              </a>
+              <a 
+                href="https://t.me/+2ErSV0N4ufZiNDZl" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg glass border border-white/10 flex items-center justify-center hover-elevate transition-all hover:border-blue-400/50"
+                aria-label="Telegram"
+              >
+                <SiTelegram className="w-4 h-4 text-blue-400" />
               </a>
             </div>
           </div>
