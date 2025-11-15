@@ -47,8 +47,22 @@ export function InvestorSection() {
     },
   });
 
-  const onSubmit = (data: InsertContact) => {
-    contactMutation.mutate(data);
+  const onSubmit = async (data: InsertContact) => {
+    try {
+      // Submit the form data to the backend
+      await contactMutation.mutateAsync(data);
+      
+      toast({
+        title: 'Message sent!',
+        description: 'Thank you for your interest. We\'ll be in touch soon.',
+      });
+      
+      // Reset the form
+      form.reset();
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      // The error is already handled by the mutation's onError handler
+    }
   };
 
   const onInvalid = (errors: any) => {

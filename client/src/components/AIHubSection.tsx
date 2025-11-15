@@ -119,8 +119,8 @@ export function AIHubSection() {
               </span>
             </h2>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Glider's AI Hub brings intelligent automation to your workflow — from summarizing 
-              conversations to analyzing data — all while keeping your information private and secure.
+              Glider's AI Hub brings intelligent automation to your workflow.. from summarizing 
+              conversations to analyzing data.. all while keeping your information private and secure.
             </p>
 
             <div className="space-y-4">

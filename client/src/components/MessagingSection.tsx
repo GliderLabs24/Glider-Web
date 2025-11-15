@@ -23,7 +23,7 @@ export function MessagingSection() {
       <div className="container mx-auto px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="order-2 lg:order-1">
-            <Card className="p-8 glass-strong border-primary/20">
+            <Card className="p-4 sm:p-6 glass-strong border-primary/20">
               <div className="space-y-4">
                 {messages.map((message, index) => (
                   <motion.div
@@ -34,21 +34,21 @@ export function MessagingSection() {
                     className={`flex ${message.isSent ? 'justify-end' : 'justify-start'}`}
                     data-testid={`message-${index}`}
                   >
-                    <div className={`max-w-xs ${message.isSent ? 'text-right' : 'text-left'}`}>
+                    <div className={`max-w-[80%] sm:max-w-xs ${message.isSent ? 'text-right' : 'text-left'}`}>
                       <div 
-                        className={`inline-block px-4 py-3 rounded-2xl ${
+                        className={`inline-block px-3 py-2 rounded-xl ${
                           message.isSent 
                             ? 'bg-primary text-primary-foreground' 
                             : 'glass border border-white/10'
                         }`}
                       >
-                        <p className="text-sm">{message.text}</p>
+                        <p className="text-xs sm:text-sm">{message.text}</p>
                         {message.amount && (
                           <motion.div
                             initial={{ scale: 0 }}
                             animate={isInView ? { scale: 1 } : {}}
                             transition={{ duration: 0.5, delay: (index * 0.2) + 0.3 }}
-                            className="mt-2 flex items-center gap-2 text-xs font-semibold"
+                            className="mt-1 flex items-center gap-1 text-[10px] sm:text-xs font-semibold"
                           >
                             <CoinsIcon className="w-4 h-4" />
                             {message.amount}
@@ -61,7 +61,7 @@ export function MessagingSection() {
               </div>
 
               <div className="mt-6 pt-6 border-t border-white/10">
-                <div className="flex items-center justify-center gap-6 text-xs text-muted-foreground">
+                <div className="flex flex-wrap justify-center gap-3 sm:gap-6 text-[10px] sm:text-xs text-muted-foreground">
                   <div className="flex items-center gap-2">
                     <Lock className="w-4 h-4 text-primary" />
                     <span>Encrypted</span>
@@ -92,7 +92,7 @@ export function MessagingSection() {
             </h2>
             <p className="text-xl text-muted-foreground leading-relaxed">
               Send messages that become value. Glider Messaging integrates crypto transfers directly 
-              into conversations — encrypted, instant, and verified on-chain. No separate apps, 
+              into conversations.. encrypted, instant, and verified on-chain. No separate apps, 
               no friction.
             </p>
             <div className="flex items-start gap-4 glass p-4 rounded-lg border border-white/10">

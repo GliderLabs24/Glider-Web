@@ -1,8 +1,19 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage";
+import { sqliteStorage as storage } from "./sqlite-storage";
 import { insertContactSchema } from "@shared/schema";
 import { z } from "zod";
+import { sendWaitlistConfirmation, sendNewWaitlistNotification } from "./email";
+
+// Validate environment variables
+if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+  console.warn('Warning: Email credentials not set. Email notifications will not work.');
+  console.warn('Please set EMAIL_USER and EMAIL_PASS environment variables.');
+}
+
+if (!process.env.ADMIN_EMAIL) {
+  console.warn('Warning: ADMIN_EMAIL not set. Using EMAIL_USER for admin notifications.');
+}
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission endpoint
@@ -11,9 +22,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const validatedData = insertContactSchema.parse(req.body);
       const contact = await storage.createContact(validatedData);
       
+      // Send confirmation email to user
+      if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+        try {
+          await sendWaitlistConfirmation(validatedData.email, validatedData.name || 'User');
+          
+          // Send notification to admin
+          await sendNewWaitlistNotification(
+            validatedData.email, 
+            validatedData.name || 'User',
+            validatedData
+          );
+        } catch (emailError) {
+          console.error('Error sending email notification:', emailError);
+          // Don't fail the request if email sending fails
+        }
+      }
+      
       res.status(201).json({
         success: true,
-        message: "Contact form submitted successfully",
+        message: "You've been added to our waitlist! Check your email for confirmation.",
         data: contact,
       });
     } catch (error) {

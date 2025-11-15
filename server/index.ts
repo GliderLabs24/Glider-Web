@@ -1,8 +1,24 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import cors from "cors";
 
 const app = express();
+
+// Enable CORS for all routes
+const corsOptions = {
+  origin: process.env.NODE_ENV === 'production' 
+    ? ["http://localhost:3000", "http://127.0.0.1:3000", "https://your-production-domain.com"]
+    : true, // Allow all origins in development
+  methods: ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+  credentials: true
+};
+
+app.use(cors(corsOptions));
+
+// Handle preflight requests
+app.options('*', cors(corsOptions));
 
 declare module 'http' {
   interface IncomingMessage {
@@ -70,12 +86,13 @@ app.use((req, res, next) => {
   // Other ports are firewalled. Default to 5000 if not specified.
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
-  const port = parseInt(process.env.PORT || '5000', 10);
+  const port = parseInt(process.env.PORT || '3000', 10);
+  const host = process.env.HOST || '127.0.0.1';
   server.listen({
     port,
-    host: "0.0.0.0",
-    reusePort: true,
+    host,
+    reusePort: false,
   }, () => {
-    log(`serving on port ${port}`);
+    log(`Server running at http://${host}:${port}`);
   });
 })();

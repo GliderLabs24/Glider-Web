@@ -89,7 +89,7 @@ export function WorkifiSection() {
               <h3 className="text-lg font-semibold mb-2">Privacy-First Architecture</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Every Workifi tool uses blockchain for authentication and IPFS for decentralized 
-                storage. Your team's data never sits on centralized servers — it's distributed, 
+                storage. Your team's data never sits on centralized servers.. it's distributed, 
                 encrypted, and under your control.
               </p>
             </div>

@@ -1,14 +1,23 @@
 import { motion, useInView } from 'framer-motion';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Wallet, ArrowRightLeft, TrendingUp, Shield } from 'lucide-react';
+import { Wallet, ArrowRightLeft, TrendingUp, Shield, Loader2 } from 'lucide-react';
 import { SiSolana, SiEthereum, SiPolygon } from 'react-icons/si';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
+import { fetchTokenPrices, formatCurrency, TokenPrice } from '@/lib/cryptoPrices';
 
-const chains = [
-  { name: 'Solana', icon: SiSolana, color: 'text-[#14F195]' },
-  { name: 'Ethereum', icon: SiEthereum, color: 'text-[#627EEA]' },
-  { name: 'Polygon', icon: SiPolygon, color: 'text-[#8247E5]' }
+interface ChainInfo {
+  name: string;
+  id: string;
+  icon: any;
+  color: string;
+  balance: number;
+}
+
+const chains: ChainInfo[] = [
+  { name: 'Solana', id: 'solana', icon: SiSolana, color: 'text-[#14F195]', balance: 8.5 },
+  { name: 'Ethereum', id: 'ethereum', icon: SiEthereum, color: 'text-[#627EEA]', balance: 2.3 },
+  { name: 'Polygon', id: 'matic-network', icon: SiPolygon, color: 'text-[#8247E5]', balance: 1245 }
 ];
 
 const features = [
@@ -20,6 +29,42 @@ const features = [
 export function WalletSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const [tokenPrices, setTokenPrices] = useState<Record<string, TokenPrice>>({});
+  const [loading, setLoading] = useState(true);
+  const [totalBalance, setTotalBalance] = useState(0);
+
+  useEffect(() => {
+    const fetchPrices = async () => {
+      try {
+        setLoading(true);
+        const prices = await fetchTokenPrices();
+        const pricesMap = prices.reduce((acc, token) => {
+          acc[token.id] = token;
+          return acc;
+        }, {} as Record<string, TokenPrice>);
+        
+        setTokenPrices(pricesMap);
+        
+        // Calculate total balance
+        const balance = chains.reduce((total, chain) => {
+          const price = pricesMap[chain.id]?.current_price || 0;
+          return total + (chain.balance * price);
+        }, 0);
+        
+        setTotalBalance(balance);
+      } catch (error) {
+        console.error('Error fetching prices:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPrices();
+    // Refresh prices every 60 seconds
+    const interval = setInterval(fetchPrices, 60000);
+    
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section 
@@ -43,7 +88,7 @@ export function WalletSection() {
             </h2>
             <p className="text-xl text-muted-foreground leading-relaxed">
               Manage all your crypto assets in one unified interface. Glider Wallet supports 
-              multiple blockchains, seamless swaps, and secure staking — all without leaving 
+              multiple blockchains, seamless swaps, and secure staking; all without leaving 
               the platform.
             </p>
             <div className="flex flex-wrap gap-3">
@@ -68,21 +113,26 @@ export function WalletSection() {
           </motion.div>
 
           <div className="relative">
-            <Card className="p-8 glass-strong border-accent/20 relative overflow-hidden">
+            <Card className="p-4 sm:p-6 lg:p-8 glass-strong border-accent/20 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-secondary/10" />
               
               <div className="relative z-10">
                 <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-3">
-                    <Wallet className="w-6 h-6 text-accent" />
-                    <span className="font-semibold text-lg">Multi-Chain Wallet</span>
+                  <div className="flex items-center gap-2">
+                    <Wallet className="w-5 h-5 text-accent" />
+                    <span className="font-semibold text-base sm:text-lg">Multi-Chain Wallet</span>
                   </div>
-                  <Badge className="bg-accent/20 text-accent border-0">Active</Badge>
+                  <Badge className="bg-accent/20 text-accent border-0 text-xs sm:text-sm">Active</Badge>
                 </div>
 
                 <div className="space-y-4 mb-6">
-                  <div className="text-sm text-muted-foreground">Total Balance</div>
-                  <div className="text-4xl font-bold">$24,582.45</div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs sm:text-sm text-muted-foreground">Total Balance</span>
+                    {loading && <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />}
+                  </div>
+                  <div className="text-3xl sm:text-4xl font-bold">
+                    {loading ? 'Loading...' : formatCurrency(totalBalance)}
+                  </div>
                 </div>
 
                 <div className="space-y-3">
@@ -92,25 +142,36 @@ export function WalletSection() {
                       initial={{ opacity: 0, x: 50 }}
                       animate={isInView ? { opacity: 1, x: 0 } : {}}
                       transition={{ duration: 0.6, delay: index * 0.15 }}
-                      className="flex items-center justify-between p-4 rounded-lg glass border border-white/5 hover-elevate"
+                      className="flex items-center justify-between w-full p-3 sm:p-4 rounded-lg glass border border-white/5 hover-elevate"
                       data-testid={`chain-${index}`}
                     >
-                      <div className="flex items-center gap-3">
-                        <div className={`w-10 h-10 rounded-full glass-strong flex items-center justify-center ${chain.color}`}>
-                          <chain.icon className="w-6 h-6" />
+                      <div className="flex items-center gap-3 flex-1">
+                        <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full glass-strong flex items-center justify-center ${chain.color}`}>
+                          <chain.icon className="w-4 h-4 sm:w-6 sm:h-6" />
                         </div>
                         <div>
-                          <div className="font-semibold">{chain.name}</div>
-                          <div className="text-xs text-muted-foreground">
-                            {index === 0 ? '8.5 SOL' : index === 1 ? '2.3 ETH' : '1,245 MATIC'}
-                          </div>
+                          <div className="font-semibold text-sm sm:text-base">{chain.name}</div>
+                          <div className="text-[10px] sm:text-xs text-muted-foreground">
+                          {chain.balance} {chain.symbol || chain.name.toUpperCase().substring(0, 3)}
+                        </div>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <div className="font-semibold">
-                          ${index === 0 ? '8,245' : index === 1 ? '9,890' : '6,447'}
+                      <div className="text-right ml-4">
+                        <div className="font-semibold text-sm sm:text-base">
+                          {loading ? (
+                            <Loader2 className="w-4 h-4 animate-spin inline-block" />
+                          ) : tokenPrices[chain.id] ? (
+                            formatCurrency(tokenPrices[chain.id].current_price * chain.balance)
+                          ) : (
+                            'N/A'
+                          )}
                         </div>
-                        <div className="text-xs text-green-400">+12.5%</div>
+                        {tokenPrices[chain.id]?.price_change_percentage_24h !== undefined && (
+                          <div className={`text-[10px] sm:text-xs ${tokenPrices[chain.id].price_change_percentage_24h >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                            {tokenPrices[chain.id].price_change_percentage_24h >= 0 ? '+' : ''}
+                            {tokenPrices[chain.id].price_change_percentage_24h.toFixed(2)}%
+                          </div>
+                        )}
                       </div>
                     </motion.div>
                   ))}

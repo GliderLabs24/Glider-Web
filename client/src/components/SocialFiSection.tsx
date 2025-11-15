@@ -53,11 +53,11 @@ export function SocialFiSection() {
             </h2>
             <p className="text-xl text-muted-foreground leading-relaxed">
               Glider's SocialFi layer puts you in control. Your identity, connections, and content 
-              are yours — stored on-chain, monetizable, and portable across the decentralized web.
+              are yours.. stored on-chain, monetizable, and portable across the decentralized web.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {features.map((feature, index) => (
               <motion.div
                 key={feature.title}

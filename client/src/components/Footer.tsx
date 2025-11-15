@@ -1,16 +1,30 @@
-import { SiDiscord, SiX, SiGithub } from 'react-icons/si';
+import { SiFacebook, SiYoutube, SiInstagram, SiLinkedin, SiTelegram, SiGithub, SiX } from 'react-icons/si';
 
 export function Footer() {
   return (
-    <footer className="py-16 bg-black/40 backdrop-blur-xl border-t border-white/10" data-testid="footer-main">
-      <div className="container mx-auto px-8">
+    <footer className="relative py-20 bg-black/40 backdrop-blur-xl border-t border-white/10 overflow-hidden" data-testid="footer-main">
+      {/* Glider text logo background */}
+      <div className="absolute inset-x-0 -top-20 h-40 w-full flex items-center justify-center pointer-events-none">
+        <img 
+          src="https://green-rainy-clam-911.mypinata.cloud/ipfs/bafybeieni6d3tyn2oyr2p4ucgbbh6lbal65ovwu2ui5dsgnmh7yvxl4aue" 
+          alt="Glider" 
+          className="w-full max-w-4xl h-auto opacity-10"
+          style={{ transform: 'translateY(50%)' }}
+        />
+      </div>
+      
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-md bg-gradient-to-br from-primary to-secondary flex items-center justify-center font-bold text-lg glow-blue">
-                G
-              </div>
-              <span className="text-xl font-bold">Glider</span>
+            <div className="flex items-center gap-3 mb-4">
+              <img 
+                src="https://green-rainy-clam-911.mypinata.cloud/ipfs/bafkreif4rnp5754if77z747skgfhwgjj4vh5jb56d5dgrbjudsxl2nppsi"
+                alt="Glider Logo"
+                className="h-10 w-auto"
+              />
+              <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                Glider
+              </span>
             </div>
             <p className="text-sm text-muted-foreground">
               Built decentralized. Powered by Glider.
@@ -19,36 +33,69 @@ export function Footer() {
 
           <div>
             <h3 className="font-semibold mb-4">Community</h3>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-2">
               <a 
-                href="https://discord.gg/glider" 
+                href="https://facebook.com/glider" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg glass border border-white/10 flex items-center justify-center hover-elevate transition-all hover:border-primary/30"
-                data-testid="link-discord"
-                aria-label="Discord"
+                className="w-9 h-9 rounded-lg glass border border-white/10 flex items-center justify-center hover-elevate transition-all hover:border-blue-500/50"
+                aria-label="Facebook"
               >
-                <SiDiscord className="w-5 h-5" />
+                <SiFacebook className="w-4 h-4 text-blue-400" />
               </a>
               <a 
-                href="https://x.com/glider" 
+                href="https://youtube.com/glider" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg glass border border-white/10 flex items-center justify-center hover-elevate transition-all hover:border-primary/30"
-                data-testid="link-x"
-                aria-label="X (Twitter)"
+                className="w-9 h-9 rounded-lg glass border border-white/10 flex items-center justify-center hover-elevate transition-all hover:border-red-500/50"
+                aria-label="YouTube"
               >
-                <SiX className="w-5 h-5" />
+                <SiYoutube className="w-4 h-4 text-red-500" />
+              </a>
+              <a 
+                href="https://instagram.com/glider" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg glass border border-white/10 flex items-center justify-center hover-elevate transition-all hover:border-pink-500/50"
+                aria-label="Instagram"
+              >
+                <SiInstagram className="w-4 h-4 text-pink-400" />
+              </a>
+              <a 
+                href="https://linkedin.com/company/glider" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg glass border border-white/10 flex items-center justify-center hover-elevate transition-all hover:border-blue-400/50"
+                aria-label="LinkedIn"
+              >
+                <SiLinkedin className="w-4 h-4 text-blue-400" />
+              </a>
+              <a 
+                href="https://t.me/glider" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg glass border border-white/10 flex items-center justify-center hover-elevate transition-all hover:border-blue-400/50"
+                aria-label="Telegram"
+              >
+                <SiTelegram className="w-4 h-4 text-blue-400" />
               </a>
               <a 
                 href="https://github.com/glider" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg glass border border-white/10 flex items-center justify-center hover-elevate transition-all hover:border-primary/30"
-                data-testid="link-github"
+                className="w-9 h-9 rounded-lg glass border border-white/10 flex items-center justify-center hover-elevate transition-all hover:border-gray-400/50"
                 aria-label="GitHub"
               >
-                <SiGithub className="w-5 h-5" />
+                <SiGithub className="w-4 h-4 text-gray-200" />
+              </a>
+              <a 
+                href="https://x.com/glider" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg glass border border-white/10 flex items-center justify-center hover-elevate transition-all hover:border-gray-400/50"
+                aria-label="X (Twitter)"
+              >
+                <SiX className="w-4 h-4" />
               </a>
             </div>
           </div>
@@ -56,7 +103,7 @@ export function Footer() {
           <div>
             <h3 className="font-semibold mb-4">Company</h3>
             <p className="text-sm text-muted-foreground">
-              © 2024 Goodluck Technologies
+              © 2025 Goodluck Labs
               <br />
               All rights reserved
             </p>
@@ -64,7 +111,7 @@ export function Footer() {
         </div>
 
         <div className="pt-8 border-t border-white/10 text-center">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             Built decentralized. Powered by Glider.
           </p>
         </div>
