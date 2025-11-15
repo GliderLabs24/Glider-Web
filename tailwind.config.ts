@@ -14,11 +14,17 @@ export default {
         // Flat / base colors (regular buttons)
         background: "hsl(var(--background) / <alpha-value>)",
         foreground: "hsl(var(--foreground) / <alpha-value>)",
+        input: "hsl(var(--input) / <alpha-value>)",
+        // Border colors configuration
         border: {
           DEFAULT: "hsl(var(--border) / <alpha-value>)",
-          foreground: "hsl(var(--border-foreground) / <alpha-value>)"
+          foreground: "hsl(var(--border-foreground) / <alpha-value>)",
+          primary: "hsl(var(--primary) / <alpha-value>)",
+          secondary: "hsl(var(--secondary) / <alpha-value>)",
+          destructive: "hsl(var(--destructive) / <alpha-value>)",
+          accent: "hsl(var(--accent) / <alpha-value>)",
+          muted: "hsl(var(--muted) / <alpha-value>)"
         },
-        input: "hsl(var(--input) / <alpha-value>)",
         card: {
           DEFAULT: "hsl(var(--card) / <alpha-value>)",
           foreground: "hsl(var(--card-foreground) / <alpha-value>)",
