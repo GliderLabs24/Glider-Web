@@ -3,19 +3,21 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 
 export default defineConfig({
+  root: "./client",
   base: "/",
   plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "client/src"),
-      "@assets": path.resolve(__dirname, "attached_assets")
+      "@": path.resolve(__dirname, "./client/src"),
+      "@assets": path.resolve(__dirname, "./attached_assets")
     }
   },
   build: {
-    outDir: "dist",
+    outDir: "../dist",
     emptyOutDir: true,
     sourcemap: true,
     rollupOptions: {
+      input: "./client/index.html",
       output: {
         manualChunks: {
           react: ['react', 'react-dom'],
