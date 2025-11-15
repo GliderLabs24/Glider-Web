@@ -5,16 +5,17 @@
       "src": "client/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist",
-        "cleanUrls": true,
-        "includeFiles": ["dist/**"]
+        "distDir": "dist"
       }
     }
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "^/(.*)",
       "dest": "/index.html"
     }
+  ],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
