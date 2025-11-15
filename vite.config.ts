@@ -1,9 +1,14 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import path from "path";
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
+
+// Get the directory name in ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Get the absolute path to the client directory
-const clientPath = path.resolve(__dirname, "./client");
+const clientPath = resolve(__dirname, "./client");
 
 export default defineConfig({
   root: clientPath,
@@ -13,20 +18,20 @@ export default defineConfig({
     alias: [
       {
         find: "@/",
-        replacement: path.resolve(clientPath, "src") + "/"
+        replacement: resolve(clientPath, "src") + "/"
       },
       {
         find: "@assets",
-        replacement: path.resolve(__dirname, "./attached_assets")
+        replacement: resolve(__dirname, "./attached_assets")
       }
     ]
   },
   build: {
-    outDir: path.resolve(__dirname, "dist"),
+    outDir: resolve(__dirname, "dist"),
     emptyOutDir: true,
     sourcemap: true,
     rollupOptions: {
-      input: path.resolve(clientPath, "index.html"),
+      input: resolve(clientPath, "index.html"),
       output: {
         manualChunks: {
           react: ['react', 'react-dom'],

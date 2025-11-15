@@ -11,7 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
-import { insertContactSchema, type InsertContact } from '@shared/schema';
+import { insertContactSchema, type InsertContact } from '../../../shared/schema';
 
 export function InvestorSection() {
   const ref = useRef(null);

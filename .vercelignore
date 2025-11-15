@@ -1,0 +1,22 @@
+node_modules
+.git
+.gitignore
+.env.local
+.env.development
+.env.test
+.env.production
+.vercel
+.next
+.vscode
+.idea
+*.md
+*.log
+*.tsbuildinfo
+.DS_Store
+*.pem
+
+# Ignore server files in client build
+server/
+
+# Ignore root node_modules in client build
+../node_modules/
