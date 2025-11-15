@@ -2,22 +2,31 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 
+// Get the absolute path to the client directory
+const clientPath = path.resolve(__dirname, "./client");
+
 export default defineConfig({
-  root: "./client",
+  root: clientPath,
   base: "/",
   plugins: [react()],
   resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./client/src"),
-      "@assets": path.resolve(__dirname, "./attached_assets")
-    }
+    alias: [
+      {
+        find: "@/",
+        replacement: path.resolve(clientPath, "src") + "/"
+      },
+      {
+        find: "@assets",
+        replacement: path.resolve(__dirname, "./attached_assets")
+      }
+    ]
   },
   build: {
-    outDir: "../dist",
+    outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
     sourcemap: true,
     rollupOptions: {
-      input: "./client/index.html",
+      input: path.resolve(clientPath, "index.html"),
       output: {
         manualChunks: {
           react: ['react', 'react-dom'],
