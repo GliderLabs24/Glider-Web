@@ -4,23 +4,16 @@
     {
       "src": "client/package.json",
       "use": "@vercel/static-build",
-      "config": { 
+      "config": {
         "distDir": "dist",
-        "cleanUrls": true
+        "cleanUrls": true,
+        "includeFiles": ["dist/**"]
       }
     }
   ],
   "routes": [
     {
-      "src": "^/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "^/favicon.ico",
-      "dest": "/favicon.ico"
-    },
-    {
-      "src": "^/.*",
+      "src": "/(.*)",
       "dest": "/index.html"
     }
   ]
