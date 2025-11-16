@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: [
-      { find: '@/src', replacement: path.resolve(__dirname, 'src') + '/' },
+      { find: '@', replacement: path.resolve(__dirname, 'src') },
       { find: '@assets', replacement: path.resolve(__dirname, '..', 'attached_assets') }
     ]
   },
