@@ -7,15 +7,23 @@ export default defineConfig({
   resolve: {
     alias: [
       { find: '@', replacement: path.resolve(__dirname, 'src') },
-      { find: '@assets', replacement: path.resolve(__dirname, '..', 'attached_assets') }
+      { find: '@assets', replacement: path.resolve(__dirname, '..', 'attached_assets') },
+      // Add any other necessary aliases here
     ]
   },
   build: {
-    outDir: path.resolve(__dirname, '..', 'dist'),
+    outDir: path.resolve(__dirname, 'dist'),
     emptyOutDir: true,
-    sourcemap: true,
+    sourcemap: process.env.NODE_ENV !== 'production',
     rollupOptions: {
       input: path.resolve(__dirname, 'index.html'),
+      external: [
+        'drizzle-orm',
+        'drizzle-orm/pg-core',
+        'drizzle-zod',
+        'pg',
+        '@neondatabase/serverless'
+      ],
       output: {
         manualChunks: {
           react: ['react', 'react-dom'],

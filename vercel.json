@@ -6,7 +6,7 @@
       "use": "@vercel/static-build",
       "config": {
         "distDir": "dist",
-        "installCommand": "cd .. && npm install && cd client && npm install",
+        "installCommand": "cd client && npm install",
         "buildCommand": "npm run build"
       }
     }
@@ -18,5 +18,10 @@
   ],
   "env": {
     "NODE_VERSION": "18.x"
+  },
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    }
   }
 }
