@@ -1,37 +1,31 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import { fileURLToPath } from 'url';
-import { dirname, resolve } from 'path';
-
-// Get the directory name in ESM
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-// Get the absolute path to the client directory
-const clientPath = resolve(__dirname, "./client");
+﻿import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
 
 export default defineConfig({
-  root: clientPath,
-  base: "/",
   plugins: [react()],
   resolve: {
     alias: [
-      {
-        find: "@/",
-        replacement: resolve(clientPath, "src") + "/"
-      },
-      {
-        find: "@assets",
-        replacement: resolve(__dirname, "./attached_assets")
-      }
+      { find: '@', replacement: path.resolve(__dirname, 'src') },
+      { find: '@assets', replacement: path.resolve(__dirname, '..', 'attached_assets') },
+      // Add any other necessary aliases here
+      { find: 'zod', replacement: 'zod' },  // Explicitly resolve zod
     ]
   },
   build: {
-    outDir: resolve(__dirname, "dist"),
+    outDir: path.resolve(__dirname, 'dist'),
     emptyOutDir: true,
-    sourcemap: true,
+    sourcemap: process.env.NODE_ENV !== 'production',
     rollupOptions: {
-      input: resolve(clientPath, "index.html"),
+      input: path.resolve(__dirname, 'index.html'),
+      external: [
+        'drizzle-orm',
+        'drizzle-orm/pg-core',
+        'drizzle-zod',
+        'pg',
+        '@neondatabase/serverless',
+        'zod'  // Add zod to external dependencies
+      ],
       output: {
         manualChunks: {
           react: ['react', 'react-dom'],
