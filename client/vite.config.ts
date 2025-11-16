@@ -1,1 +1,39 @@
-import { defineConfig } from \"vite\";\nimport react from \"@vitejs/plugin-react\";\nimport path from \"path\";\n\nexport default defineConfig({\n  plugins: [react()],\n  resolve: {\n    alias: [\n      { find: \"@/\", replacement: path.resolve(__dirname, \"src\") + \"/\" },\n      { find: \"@assets\", replacement: path.resolve(__dirname, \"..\", \"attached_assets\") }\n    ]\n  },\n  build: {\n    outDir: path.resolve(__dirname, \"..\", \"dist\"),\n    emptyOutDir: true,\n    sourcemap: true,\n    rollupOptions: {\n      input: path.resolve(__dirname, \"index.html\"),\n      output: {\n        manualChunks: {\n          react: [\"react\", \"react-dom\"],\n          vendor: [\"react-router-dom\"]\n        },\n        entryFileNames: \"assets/[name].[hash].js\",\n        chunkFileNames: \"assets/[name].[hash].js\",\n        assetFileNames: \"assets/[name].[hash][extname]\"\n      }\n    }\n  },\n  server: {\n    port: 3000,\n    open: true,\n    historyApiFallback: true\n  },\n  preview: {\n    port: 3000,\n    open: true\n  }\n});
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: [
+      { find: '@/src', replacement: path.resolve(__dirname, 'src') + '/' },
+      { find: '@assets', replacement: path.resolve(__dirname, '..', 'attached_assets') }
+    ]
+  },
+  build: {
+    outDir: path.resolve(__dirname, '..', 'dist'),
+    emptyOutDir: true,
+    sourcemap: true,
+    rollupOptions: {
+      input: path.resolve(__dirname, 'index.html'),
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom'],
+          vendor: ['react-router-dom']
+        },
+        entryFileNames: 'assets/[name].[hash].js',
+        chunkFileNames: 'assets/[name].[hash].js',
+        assetFileNames: 'assets/[name].[hash][extname]'
+      }
+    }
+  },
+  server: {
+    port: 3000,
+    open: true,
+    historyApiFallback: true
+  },
+  preview: {
+    port: 3000,
+    open: true
+  }
+});
