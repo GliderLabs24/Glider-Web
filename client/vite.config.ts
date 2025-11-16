@@ -22,8 +22,7 @@ export default defineConfig({
         'drizzle-orm/pg-core',
         'drizzle-zod',
         'pg',
-        '@neondatabase/serverless',
-        'zod'
+        '@neondatabase/serverless'
       ],
       output: {
         manualChunks: {
