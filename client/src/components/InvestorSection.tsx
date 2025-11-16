@@ -29,6 +29,8 @@ export function InvestorSection() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: InsertContact) => {
+      // Use relative URL; if the API route is not available in static deploy, this will
+      // be caught and surfaced as a toast without crashing the app.
       return await apiRequest('POST', '/api/contact', data);
     },
     onSuccess: () => {
@@ -41,7 +43,7 @@ export function InvestorSection() {
     onError: (error: any) => {
       toast({
         title: 'Error',
-        description: error.message || 'Failed to send message. Please try again.',
+        description: error?.message || 'Failed to send message. Please try again later.',
         variant: 'destructive',
       });
     },
@@ -51,17 +53,9 @@ export function InvestorSection() {
     try {
       // Submit the form data to the backend
       await contactMutation.mutateAsync(data);
-      
-      toast({
-        title: 'Message sent!',
-        description: 'Thank you for your interest. We\'ll be in touch soon.',
-      });
-      
-      // Reset the form
-      form.reset();
+      // Success toast handled in onSuccess. Avoid double toasts here.
     } catch (error) {
-      console.error('Error submitting form:', error);
-      // The error is already handled by the mutation's onError handler
+      // Error toast handled in onError. Avoid console noise in production.
     }
   };
 

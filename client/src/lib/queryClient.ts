@@ -12,15 +12,21 @@ export async function apiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
-  const res = await fetch(url, {
-    method,
-    headers: data ? { "Content-Type": "application/json" } : {},
-    body: data ? JSON.stringify(data) : undefined,
-    credentials: "include",
-  });
+  try {
+    const res = await fetch(url, {
+      method,
+      headers: data ? { "Content-Type": "application/json" } : {},
+      body: data ? JSON.stringify(data) : undefined,
+      credentials: "include",
+    });
 
-  await throwIfResNotOk(res);
-  return res;
+    await throwIfResNotOk(res);
+    return res;
+  } catch (err: any) {
+    // Ensure we don't crash the app on network/server errors.
+    const message = err?.message || 'Request failed';
+    throw new Error(message);
+  }
 }
 
 type UnauthorizedBehavior = "returnNull" | "throw";
@@ -48,9 +54,11 @@ export const queryClient = new QueryClient({
       refetchInterval: false,
       refetchOnWindowFocus: false,
       staleTime: Infinity,
+      // Avoid infinite loops on failures in production.
       retry: false,
     },
     mutations: {
+      // Do not auto-retry mutations; surface error to UI instead.
       retry: false,
     },
   },
