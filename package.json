@@ -110,5 +110,17 @@
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.8"
-  }
+  },
+  "description": "",
+  "main": "postcss.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GliderLabs24/Glider-Web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/GliderLabs24/Glider-Web/issues"
+  },
+  "homepage": "https://github.com/GliderLabs24/Glider-Web#readme"
 }
